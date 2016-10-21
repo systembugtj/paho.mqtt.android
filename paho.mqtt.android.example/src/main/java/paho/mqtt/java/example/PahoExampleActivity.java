@@ -43,12 +43,18 @@ public class PahoExampleActivity extends AppCompatActivity{
 
     MqttAndroidClient mqttAndroidClient;
 
-    final String serverUri = "tcp://iot.eclipse.org:1883";
+    static final String M2MIO_DOMAIN = "remote.kandaping.com";
+    static final String M2MIO_STUFF = "control";
+    static final String M2MIO_THING = "direct";
+    static final String M2MIO_USERNAME = "guest";
+    static final String M2MIO_PASSWORD_MD5 = "guest";
+
+    final String serverUri = "tcp://mqtt.kandaping.com:1883";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "exampleAndroidTopic";
-    final String publishTopic = "exampleAndroidPublishTopic";
-    final String publishMessage = "Hello World!";
+    final String subscriptionTopic = "remote/control/e8f78b17-7f05-4233-9618-bebdd6adf4bc";
+    final String publishTopic = subscriptionTopic;
+    final String publishMessage = "{\"index\":1, \"action\":\"RIGHT\"}";
 
 
     @Override
@@ -110,13 +116,6 @@ public class PahoExampleActivity extends AppCompatActivity{
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(false);
-
-
-
-
-
-
-
         try {
             //addToHistory("Connecting to " + serverUri);
             mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
@@ -173,6 +172,7 @@ public class PahoExampleActivity extends AppCompatActivity{
 
     public void subscribeToTopic(){
         try {
+
             mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -190,7 +190,7 @@ public class PahoExampleActivity extends AppCompatActivity{
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     // message Arrived!
-                    System.out.println("Message: " + topic + " : " + new String(message.getPayload()));
+                    addToHistory("Incoming message: " + new String(message.getPayload()));
                 }
             });
 
