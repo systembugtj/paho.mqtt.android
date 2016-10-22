@@ -8,7 +8,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 16
         targetSdkVersion 22
         testApplicationId "org.eclipse.paho.android.service.test"
     }
@@ -37,15 +37,16 @@ configurations {
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${rootProject.ext.clientVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+
 }
 
 
 def libraryGroupId = 'com.conouch.mqtt'
 def libraryArtifactId = 'mqtt-service'
-def libraryVersion = "1.0.0"
+def libraryVersion = "1.1.1"
 
 publishing {
     publications {
