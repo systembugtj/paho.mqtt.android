@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion rootProject.ext.compileSdkVersion
         testApplicationId "org.eclipse.paho.android.service.test"
     }
     buildTypes {
@@ -45,7 +45,7 @@ dependencies {
 
 def libraryGroupId = 'com.conouch.mqtt'
 def libraryArtifactId = 'mqtt-service'
-def libraryVersion = "1.1.4"
+def libraryVersion = "1.1.5"
 
 publishing {
     publications {
