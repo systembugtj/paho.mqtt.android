@@ -45,7 +45,7 @@ dependencies {
 
 def libraryGroupId = 'com.conouch.mqtt'
 def libraryArtifactId = 'mqtt-service'
-def libraryVersion = "1.1.3"
+def libraryVersion = "1.1.4"
 
 publishing {
     publications {
