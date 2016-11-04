@@ -23,6 +23,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -52,7 +54,7 @@ public class PahoExampleActivity extends AppCompatActivity{
     final String serverUri = "tcp://mqtt.kandaping.com:1883";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "remote/control/e8f78b17-7f05-4233-9618-bebdd6adf4bc";
+    final String subscriptionTopic = "/remote/control/e8f78b17-7f05-4233-9618-bebdd6adf4bc";
     final String publishTopic = subscriptionTopic;
     final String publishMessage = "{\"index\":1, \"action\":\"RIGHT\"}";
 
@@ -117,7 +119,7 @@ public class PahoExampleActivity extends AppCompatActivity{
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(false);
         try {
-            //addToHistory("Connecting to " + serverUri);
+            addToHistory("Connecting to " + serverUri);
             mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -173,24 +175,12 @@ public class PahoExampleActivity extends AppCompatActivity{
     public void subscribeToTopic(){
         try {
 
-            mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    addToHistory("Subscribed!");
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    addToHistory("Failed to subscribe");
-                }
-            });
-
-            // THIS DOES NOT WORK!
             mqttAndroidClient.subscribe(subscriptionTopic, 0, new IMqttMessageListener() {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     // message Arrived!
                     addToHistory("Incoming message: " + new String(message.getPayload()));
+
                 }
             });
 
@@ -204,6 +194,7 @@ public class PahoExampleActivity extends AppCompatActivity{
 
         try {
             MqttMessage message = new MqttMessage();
+
             message.setPayload(publishMessage.getBytes());
             mqttAndroidClient.publish(publishTopic, message);
             addToHistory("Message Published");

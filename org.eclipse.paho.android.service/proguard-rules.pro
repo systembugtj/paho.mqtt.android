@@ -15,3 +15,11 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Avoid warnings for old code in Paho 1.0.2 on Android Studio 2
+-keep class org.eclipse.paho.client.mqttv3.persist.** { *; }
+-dontwarn org.eclipse.paho.client.mqttv3.persist.**
+-keep org.eclipse.paho.client.mqttv3.*$* { *; }
+-dontwarn org.eclipse.paho.client.mqttv3.*$*
+-keepattributes Exceptions, Signature, InnerClasses
+-dontoptimize
