@@ -54,7 +54,7 @@ public class PahoExampleActivity extends AppCompatActivity{
     final String serverUri = "tcp://mqtt.kandaping.com:1883";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "/remote/control/e8f78b17-7f05-4233-9618-bebdd6adf4bc";
+    final String subscriptionTopic = "/remote/control/c3ccadf9-3d1b-460f-98f7-43ac8d9814c3";
     final String publishTopic = subscriptionTopic;
     final String publishMessage = "{\"index\":1, \"action\":\"RIGHT\"}";
 

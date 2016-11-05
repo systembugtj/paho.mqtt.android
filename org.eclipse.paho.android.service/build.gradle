@@ -92,7 +92,7 @@ task("generateJavaDocJar", type: Jar, dependsOn: (rootProject.ext.serviceVersion
 
 def libraryGroupId = 'com.conouch.mqtt'
 def libraryArtifactId = 'mqtt-service'
-def libraryVersion = "1.1.6"
+def libraryVersion = "1.1.7"
 
 publishing {
     publications {
